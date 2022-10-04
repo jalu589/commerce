@@ -10,7 +10,7 @@ class User(AbstractUser):
 class Listing(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
-    image = models.URLField(blank=True)
+    image = models.ImageField(blank=True)
     categories = ((1,"Clothing/Footwear"), (2,"Books"), (3,"Electronics"), (4,"Cosmetics"), (5,"Toys"), (6,"Home/Garden"), (7,"Sport/Leisure"))
     category = models.CharField(choices=categories, max_length=2)
     starting_price = models.DecimalField(decimal_places=2, max_digits=10)
@@ -29,7 +29,7 @@ class Bid(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.bidder} bid {self.amount} -{self.time}"
+        return f"{self.bidder} bid {self.amount} -{self.time.hour}:{self.time.minute}"
 
 
 class Comment(models.Model):
@@ -39,5 +39,5 @@ class Comment(models.Model):
     time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.commenter}: "{self.comment}" -{self.time}'
+        return f'{self.commenter}: "{self.comment}" -{self.time.hour}:{self.time.minute}'
 

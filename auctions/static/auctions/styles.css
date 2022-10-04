@@ -1,3 +1,15 @@
 body {
     padding: 10px;
 }
+
+#create-title,
+#description,
+#create-link {
+    margin-bottom: 10px;
+    display: block;
+}
+
+#create-link {
+    width: 300px;
+}
+
