@@ -1,8 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-<h2>Create a New Listing</h2>
-
+<h2 id="create-header">Create a New Listing</h2>
 <div id="create-box">
     <div id="create-text">
         <p id="name-text">Name of item:</p>
@@ -19,6 +18,7 @@
             {{ form.image }}
             {{ form.category }}
             {{ form.starting_price }}
+            <input type="hidden" name="lister" value="{{ user.id }}">
             <input type="submit">
         </form>
     </div>

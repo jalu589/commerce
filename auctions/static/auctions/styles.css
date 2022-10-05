@@ -2,6 +2,10 @@ body {
     padding: 10px;
 }
 
+#create-header {
+    margin-bottom: 20px;
+}
+
 #create-title,
 #description,
 #create-link {
@@ -32,7 +36,7 @@ body {
 
 #id_description {
     height: 100px;
-    width: 400px;
+    width: 450px;
 }
 
 #description-text {
