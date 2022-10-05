@@ -13,3 +13,28 @@ body {
     width: 300px;
 }
 
+#create-box {
+    display: flex;
+}
+
+#create-text {
+    width: 120px;
+}
+
+#id_title,
+#id_description,
+#id_image,
+#id_category,
+#id_starting_price {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#id_description {
+    height: 100px;
+    width: 400px;
+}
+
+#description-text {
+    margin-bottom: 85px;
+}
