@@ -1,10 +1,11 @@
+from unicodedata import category
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .forms import Listing_Form
-from .models import User
+from .models import User, Listing
 from datetime import datetime
 
 
@@ -66,17 +67,26 @@ def register(request):
 
 def create(request):
     if request.method == "POST":
-        form = Listing_Form(request.POST)
-        print(form.errors)
+        form = Listing_Form(request.POST, request.FILES)
         if form.is_valid():
-            print('valid')
-            form.save()
+            title = form.cleaned_data.get("title")
+            description = form.cleaned_data.get("description")
+            image = form.cleaned_data.get("image")
+            category = form.cleaned_data.get("category")
+            starting_price = form.cleaned_data.get("starting_price")
+            lister = form.cleaned_data.get("lister")
+            obj = Listing.objects.create(
+                title = title,
+                description = description,
+                image = image,
+                category = category,
+                starting_price = starting_price,
+                lister = lister
+            )
+            obj.save()
             return HttpResponseRedirect(reverse("index"))
-        else:
-            print('invalid')
     else:
         form = Listing_Form()
-        
 
     return render(request, "auctions/create.html", {
         "form": form
