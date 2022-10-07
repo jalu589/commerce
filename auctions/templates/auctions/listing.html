@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ listing.title }}</h2>
+    <div class="big-listing">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <img src="{{ listing.image.url }}" class="big-listing-image">
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-8">
+            <div class="big-listing-description">{{ listing.description }}</div>
+            <p class="big-listing-price">Current price: ${{ listing.price }}</p>
+            {% if user.id == listing.lister.id %}
+                <button>Close Listing</button>
+            {% else %}
+                <button>Bid</button>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -12,9 +12,9 @@ class Listing(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
     image = models.ImageField(blank=True, upload_to='images')
-    categories = Choices("Clothing/Footwear","Books","Electronics","Cosmetics","Toys","Home/Garden","Sport/Leisure")
+    categories = Choices("Clothing/Footwear","Books","Electronics","Cosmetics","Toys","Home/Garden","Sport/Leisure", "Other")
     category = models.CharField(choices=categories, max_length=32)
-    starting_price = models.DecimalField(decimal_places=2, max_digits=10)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
     lister = models.ForeignKey(User, on_delete=models.CASCADE, related_name="selling")
     time = models.DateTimeField("Time listed", auto_now_add=True)
 

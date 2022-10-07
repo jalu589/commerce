@@ -2,20 +2,15 @@ body {
     padding: 10px;
 }
 
-#create-header {
+p {
+    margin: 0px;
+}
+
+h2 {
     margin-bottom: 20px;
 }
 
-#create-title,
-#description,
-#create-link {
-    margin-bottom: 10px;
-    display: block;
-}
-
-#create-link {
-    width: 300px;
-}
+/* the following pertains to the create page */
 
 #create-box {
     display: flex;
@@ -25,11 +20,21 @@ body {
     width: 120px;
 }
 
+#name-text,
+#image-text,
+#category-text {
+    margin-bottom: 15px;
+}
+
+#description-text {
+    margin-bottom: 85px;
+}
+
 #id_title,
 #id_description,
 #id_image,
 #id_category,
-#id_starting_price {
+#id_price {
     display: block;
     margin-bottom: 10px;
 }
@@ -39,6 +44,78 @@ body {
     width: 450px;
 }
 
-#description-text {
-    margin-bottom: 85px;
+/* end of create page */
+
+/* the following pertains to the index page */
+
+.mini-listing {
+    width: 600px;
+    height: 200px;
+    display: flex;
+    border: 0.5px solid black;
+    margin-bottom: 25px;
 }
+
+.mini-listing-left {
+    height: 100%;
+    width: 200px;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.mini-listing-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.mini-listing-right {
+    height: 100%;
+    width: 400px;
+    padding: 10px;
+}
+
+.mini-listing-link {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+}
+
+.mini-listing-description {
+    max-height: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+/* end of index page */
+
+/* the following pertains to the listing page */
+
+.big-listing {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.big-listing-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.big-listing-description,
+.big-listing-price {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+button {
+    border: 0.5px solid black;
+    padding: 5px 20px;
+}
+
+/* end of listing page */
