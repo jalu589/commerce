@@ -100,3 +100,10 @@ def listing(request, listing_id):
     return render(request, "auctions/listing.html", {
         "listing": listing
     })
+
+
+def mine(request):
+    return render(request, "auctions/mine.html", {
+        "listings": Listing.objects.all()
+    })
+

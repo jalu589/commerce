@@ -16,11 +16,12 @@ class Listing(models.Model):
     category = models.CharField(choices=categories, max_length=32)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     lister = models.ForeignKey(User, on_delete=models.CASCADE, related_name="selling")
+    active = models.BooleanField(default=True)
+    watcher = models.ManyToManyField(User, blank=True)
     time = models.DateTimeField("Time listed", auto_now_add=True)
 
     def __str__(self):
         return f"{self.title} in {self.category}"
-
 
 
 class Bid(models.Model):
@@ -41,4 +42,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.commenter}: "{self.comment}"'
-
