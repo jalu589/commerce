@@ -2,9 +2,9 @@
 
 {% block body %}
     <h2>Watching</h2>
-
+    
     {% for listing in listings %}
-        {% if user.id == listing.watching.user.id %}
+        {% if user in listing.watchers.all %}
             <div class="mini-listing">
                 <div class="mini-listing-left">
                     <img src="{{ listing.image.url }}" class="mini-listing-image">

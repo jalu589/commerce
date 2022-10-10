@@ -98,7 +98,8 @@ def create(request):
 def listing(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
     return render(request, "auctions/listing.html", {
-        "listing": listing
+        "listing": listing,
+        "watchers": listing.watchers.all()
     })
 
 
@@ -109,6 +110,20 @@ def mine(request):
 
 
 def watching(request):
+    for item in Listing.objects.all():
+        item_watchers = item.watchers.all()
+        for person in item_watchers:
+            print(item_watchers)
     return render(request, "auctions/watching.html", {
         "listings": Listing.objects.all()
     })
+
+
+def watch(request, user_id):
+    if request.method == "POST":
+        user = User.objects.get(pk=user_id)
+        item = Listing.objects.get(pk=int(request.POST["listing"]))
+        item.watchers.add(user)
+        return HttpResponseRedirect(reverse("watching"))
+
+
