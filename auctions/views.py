@@ -107,3 +107,8 @@ def mine(request):
         "listings": Listing.objects.all()
     })
 
+
+def watching(request):
+    return render(request, "auctions/watching.html", {
+        "listings": Listing.objects.all()
+    })
