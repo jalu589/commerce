@@ -110,10 +110,6 @@ def mine(request):
 
 
 def watching(request):
-    for item in Listing.objects.all():
-        item_watchers = item.watchers.all()
-        for person in item_watchers:
-            print(item_watchers)
     return render(request, "auctions/watching.html", {
         "listings": Listing.objects.all()
     })
@@ -124,6 +120,14 @@ def watch(request, user_id):
         user = User.objects.get(pk=user_id)
         item = Listing.objects.get(pk=int(request.POST["listing"]))
         item.watchers.add(user)
+        return HttpResponseRedirect(reverse("watching"))
+
+
+def unwatch(request, user_id):
+    if request.method == "POST":
+        user = User.objects.get(pk=user_id)
+        item = Listing.objects.get(pk=int(request.POST["listing"]))
+        item.watchers.remove(user)
         return HttpResponseRedirect(reverse("watching"))
 
 
