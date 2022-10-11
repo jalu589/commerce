@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .forms import Listing_Form
+from .forms import Listing_Form, Bid_Form
 from .models import User, Listing
 from datetime import datetime
 
@@ -129,5 +129,17 @@ def unwatch(request, user_id):
         item = Listing.objects.get(pk=int(request.POST["listing"]))
         item.watchers.remove(user)
         return HttpResponseRedirect(reverse("watching"))
+
+
+def bid(request):
+    if request.method == "GET":
+        form = Bid_Form()
+        listing = Listing.objects.get(pk=int(request.GET["listing"]))
+        return render(request, "auctions/bid.html", {
+            "listing": listing,
+            "form": form
+        })
+    elif request.method == "POST":
+        pass
 
 

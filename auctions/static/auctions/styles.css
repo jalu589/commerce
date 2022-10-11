@@ -113,10 +113,12 @@ h2 {
     margin-bottom: 20px;
 }
 
-button {
+button,
+.listing-button {
     border: 0.5px solid black;
+    background-color: lightgrey;
     padding: 5px 20px;
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 /* end of listing page */

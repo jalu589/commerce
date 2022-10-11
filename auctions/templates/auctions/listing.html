@@ -16,18 +16,21 @@
                     <button>Comment</button>
                     <button>Close Listing</button>
                 {% else %}
-                    <button>Bid</button>
+                    <form action="{% url 'bid' %}">
+                        <input type="hidden" name="listing" value="{{ listing.id }}">
+                        <input type="submit" value="Bid" class="listing-button">
+                    </form>
                     {% if user in listing.watchers.all %}
                         <form action="{% url 'unwatch' user.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="listing" value="{{ listing.id }}">
-                            <input type="submit" value="Unwatch">
+                            <input type="submit" value="Unwatch" class="listing-button">
                         </form>
                     {% else %}
                         <form action="{% url 'watch' user.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="listing" value="{{ listing.id }}">
-                            <input type="submit" value="Watch">
+                            <input type="submit" value="Watch" class="listing-button">
                         </form>
                     {% endif %}
                     <button>Comment</button>
