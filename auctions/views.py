@@ -1,3 +1,4 @@
+from os import lseek
 from unicodedata import category
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
@@ -5,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .forms import Listing_Form, Bid_Form
-from .models import User, Listing
+from .models import User, Listing, Bid
 from datetime import datetime
 
 
@@ -134,12 +135,47 @@ def unwatch(request, user_id):
 def bid(request):
     if request.method == "GET":
         form = Bid_Form()
-        listing = Listing.objects.get(pk=int(request.GET["listing"]))
-        return render(request, "auctions/bid.html", {
-            "listing": listing,
-            "form": form
-        })
-    elif request.method == "POST":
-        pass
+        try:
+            listing = Listing.objects.get(pk=int(request.GET["listing"]))
+            return render(request, "auctions/bid.html", {
+                "listing": listing,
+                "form": form
+            })
+        except:
+            return render(request, "auctions/bid.html", {
+                "none": "Listing does not exist"
+            })
+    else:
+        form = Bid_Form(request.POST)
+        listing = Listing.objects.get(pk=int(request.POST["item"]))
+        if form.is_valid():
+            amount = form.cleaned_data.get("amount")
+            bidder = form.cleaned_data.get("bidder")
+            item = form.cleaned_data.get("item")
+            if amount > listing.price:
+                obj = Bid.objects.create(
+                    amount = amount,
+                    bidder = bidder,
+                    item = item,
+                )
+                obj.save()
+                listing.price = amount
+                listing.save(update_fields=['price'])
+                return HttpResponseRedirect(reverse("index"))
+            else:
+                form = Bid_Form()
+                listing = Listing.objects.get(pk=int(request.POST["item"]))
+                return render(request, "auctions/bid.html", {
+                    "listing": listing,
+                    "form": form,
+                    "message": "Bid must be higher than current price"
+                })
+        else:
+            form = Bid_Form()
+            listing = Listing.objects.get(pk=int(request.POST["item"]))
+            return render(request, "auctions/bid.html", {
+                "listing": listing,
+                "form": form
+            })
 
 

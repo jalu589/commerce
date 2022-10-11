@@ -10,24 +10,23 @@
         <div class="col-lg-6 col-md-8 col-sm-8">
             <div class="big-listing-description">{{ listing.description }}</div>
             <p class="big-listing-price">Current price: ${{ listing.price }}</p>
-            <ul>
             {% if user.is_authenticated %}
                 {% if user.id == listing.lister.id %}
                     <button>Comment</button>
                     <button>Close Listing</button>
                 {% else %}
-                    <form action="{% url 'bid' %}">
+                    <form class="listing-form"  action="{% url 'bid' %}">
                         <input type="hidden" name="listing" value="{{ listing.id }}">
                         <input type="submit" value="Bid" class="listing-button">
                     </form>
                     {% if user in listing.watchers.all %}
-                        <form action="{% url 'unwatch' user.id %}" method="post">
+                        <form class="listing-form" action="{% url 'unwatch' user.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="listing" value="{{ listing.id }}">
                             <input type="submit" value="Unwatch" class="listing-button">
                         </form>
                     {% else %}
-                        <form action="{% url 'watch' user.id %}" method="post">
+                        <form class="listing-form"  action="{% url 'watch' user.id %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="listing" value="{{ listing.id }}">
                             <input type="submit" value="Watch" class="listing-button">

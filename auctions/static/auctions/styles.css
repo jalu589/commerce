@@ -119,6 +119,11 @@ button,
     background-color: lightgrey;
     padding: 5px 20px;
     margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.listing-form {
+    display: inline;
 }
 
 /* end of listing page */
