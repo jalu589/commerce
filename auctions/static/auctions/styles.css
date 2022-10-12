@@ -1,3 +1,5 @@
+/* the following pertains to the layout page */
+
 body {
     padding: 10px;
 }
@@ -9,6 +11,14 @@ p {
 h2 {
     margin-bottom: 20px;
 }
+
+.category {
+    border: none;
+    background-color: white;
+    color: #007bff;
+}
+
+/* end of layout page */
 
 /* the following pertains to the create page */
 

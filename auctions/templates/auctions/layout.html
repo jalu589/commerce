@@ -28,9 +28,62 @@
                     Categories
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Clothing/Footwear">
+                            <input type="submit" value="Clothing/Footwear" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Books">
+                            <input type="submit" value="Books" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Electronics">
+                            <input type="submit" value="Electronics" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Cosmetics">
+                            <input type="submit" value="Cosmetics" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Toys">
+                            <input type="submit" value="Toys" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Home/Garden">
+                            <input type="submit" value="Home/Garden" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Sport/Leisure">
+                            <input type="submit" value="Sport/Leisure" class="category">
+                        </form>
+                    </li>
+                    <li>
+                        <form class="dropdown-item" action="category" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" value="Other">
+                            <input type="submit" value="Other" class="category">
+                        </form>
+                    </li>
                 </ul>
             </li>
             {% if user.is_authenticated %}

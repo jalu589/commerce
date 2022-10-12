@@ -228,3 +228,17 @@ def close(request):
         return render(request, "auctions/close.html", {
             "listings": Listing.objects.all()
         })
+
+
+def category(request):
+    if request.method == "POST":
+        items = Listing.objects.all()
+        category = request.POST["category"]
+        matching = []
+        for item in items:
+            if item.category == category:
+                matching.append(item)
+        return render(request, "auctions/category.html", {
+            "listings": matching,
+            "category": category
+        })
