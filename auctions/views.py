@@ -216,3 +216,15 @@ def comment(request):
             })
 
 
+def close(request):
+    if request.method == "POST":
+        item = Listing.objects.get(pk=int(request.POST["listing"]))
+        item.active = False
+        item.save(update_fields=['active'])
+        return render(request, "auctions/close.html", {
+            "listings": Listing.objects.all()
+        })
+    else:
+        return render(request, "auctions/close.html", {
+            "listings": Listing.objects.all()
+        })

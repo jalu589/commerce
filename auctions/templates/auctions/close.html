@@ -1,23 +1,18 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Watching</h2>
+    <h2>Ended Listings</h2>
 
     {% for listing in listings %}
-        {% if user in listing.watchers.all %}
+        {% if not listing.active %}
             <div class="mini-listing">
                 <div class="mini-listing-left">
                     <img src="{{ listing.image.url }}" class="mini-listing-image">
                 </div>
                 <div class="mini-listing-right">
                     <a class="mini-listing-link" href="{% url 'listing' listing.id %}"><h4>{{ listing.title }}</h4></a>
-                    {% if listing.active %}
-                        <div class="mini-listing-description">{{ listing.description }}</div>
-                        <p>Current price: ${{ listing.price }}</p>
-                    {% else %}
-                        <div class="mini-listing-description">This auction has ended</div>
-                        <p class="mini-listing-price">Winning bid: ${{ listing.price }}</p>
-                    {% endif %}
+                    <div class="mini-listing-description">{{ listing.description }}</div>
+                    <p>Winning bid: ${{ listing.price }}</p>
                 </div>
             </div>
         {% endif %}

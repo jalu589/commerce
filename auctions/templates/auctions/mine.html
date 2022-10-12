@@ -11,12 +11,15 @@
                 </div>
                 <div class="mini-listing-right">
                     <a class="mini-listing-link" href="{% url 'listing' listing.id %}"><h4>{{ listing.title }}</h4></a>
-                    <div class="mini-listing-description">{{ listing.description }}</div>
-                    <p>Current price: ${{ listing.price }}</p>
+                    {% if listing.active %}
+                        <div class="mini-listing-description">{{ listing.description }}</div>
+                        <p>Current price: ${{ listing.price }}</p>
+                    {% else %}
+                        <div class="mini-listing-description">This auction has ended</div>
+                        <p class="mini-listing-price">Winning bid: ${{ listing.price }}</p>
+                    {% endif %}
                 </div>
             </div>
-        {% else %}
-
         {% endif %}
     {% endfor %}
 
