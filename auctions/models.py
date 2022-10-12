@@ -26,7 +26,7 @@ class Listing(models.Model):
 
 class Bid(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=10)
-    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="buying")
+    bidder = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bidding")
     item = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids")
     time = models.DateTimeField("Bid time", auto_now_add=True)
 
@@ -36,7 +36,7 @@ class Bid(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField(blank=False)
-    commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_comments")
     item = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
     time = models.DateTimeField("Comment time", auto_now_add=True)
 

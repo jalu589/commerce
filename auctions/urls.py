@@ -14,5 +14,6 @@ urlpatterns = [
     path("watching", views.watching, name="watching"),
     path("<int:user_id>/watch", views.watch, name="watch"),
     path("<int:user_id>/unwatch", views.unwatch, name="unwatch"),
-    path("bid", views.bid, name="bid")
+    path("bid", views.bid, name="bid"),
+    path("comment", views.comment, name="comment")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

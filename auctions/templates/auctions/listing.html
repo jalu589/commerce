@@ -6,13 +6,21 @@
     <div class="big-listing">
         <div class="col-lg-4 col-md-4 col-sm-4">
             <img src="{{ listing.image.url }}" class="big-listing-image">
+            {% for comment in listing.comments.all %}
+            <div class="comment">
+                {{ comment }} - {{ comment.time }}
+            </div>
+            {% endfor %}
         </div>
         <div class="col-lg-6 col-md-8 col-sm-8">
             <div class="big-listing-description">{{ listing.description }}</div>
             <p class="big-listing-price">Current price: ${{ listing.price }}</p>
             {% if user.is_authenticated %}
                 {% if user.id == listing.lister.id %}
-                    <button>Comment</button>
+                    <form class="listing-form"  action="{% url 'comment' %}">
+                        <input type="hidden" name="listing" value="{{ listing.id }}">
+                        <input type="submit" value="Comment" class="listing-button">
+                    </form>
                     <button>Close Listing</button>
                 {% else %}
                     <form class="listing-form"  action="{% url 'bid' %}">
@@ -32,7 +40,10 @@
                             <input type="submit" value="Watch" class="listing-button">
                         </form>
                     {% endif %}
-                    <button>Comment</button>
+                    <form class="listing-form"  action="{% url 'comment' %}">
+                        <input type="hidden" name="listing" value="{{ listing.id }}">
+                        <input type="submit" value="Comment" class="listing-button">
+                    </form>
                 {% endif %}
             {% else %}
             {% endif %}

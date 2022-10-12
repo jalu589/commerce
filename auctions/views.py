@@ -5,8 +5,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .forms import Listing_Form, Bid_Form
-from .models import User, Listing, Bid
+from .forms import Listing_Form, Bid_Form, Comment_Form
+from .models import User, Listing, Bid, Comment
 from datetime import datetime
 
 
@@ -18,7 +18,6 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
-
         # Attempt to sign user in
         username = request.POST["username"]
         password = request.POST["password"]
@@ -45,7 +44,6 @@ def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
-
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -99,8 +97,7 @@ def create(request):
 def listing(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
     return render(request, "auctions/listing.html", {
-        "listing": listing,
-        "watchers": listing.watchers.all()
+        "listing": listing
     })
 
 
@@ -161,7 +158,9 @@ def bid(request):
                 obj.save()
                 listing.price = amount
                 listing.save(update_fields=['price'])
-                return HttpResponseRedirect(reverse("index"))
+                return render(request, "auctions/listing.html", {
+                    "listing": listing
+                })
             else:
                 form = Bid_Form()
                 listing = Listing.objects.get(pk=int(request.POST["item"]))
@@ -174,6 +173,44 @@ def bid(request):
             form = Bid_Form()
             listing = Listing.objects.get(pk=int(request.POST["item"]))
             return render(request, "auctions/bid.html", {
+                "listing": listing,
+                "form": form
+            })
+
+
+def comment(request):
+    if request.method == "GET":
+        form = Comment_Form()
+        try:
+            listing = Listing.objects.get(pk=int(request.GET["listing"]))
+            return render(request, "auctions/comment.html", {
+                "listing": listing,
+                "form": form
+            })
+        except:
+            return render(request, "auctions/comment.html", {
+                "none": "Listing does not exist"
+            })
+    else:
+        form = Comment_Form(request.POST)
+        listing = Listing.objects.get(pk=int(request.POST["item"]))
+        if form.is_valid():
+            comment = form.cleaned_data.get("comment")
+            commenter = form.cleaned_data.get("commenter")
+            item = form.cleaned_data.get("item")
+
+            obj = Comment.objects.create(
+                comment = comment,
+                commenter = commenter,
+                item = item
+            )
+            return render(request, "auctions/listing.html", {
+                "listing": listing
+            })
+        else:
+            comment = Comment_Form()
+            listing = Listing.objects.get(pk=int(request.POST["item"]))
+            return render(request, "auctions/comment.html", {
                 "listing": listing,
                 "form": form
             })

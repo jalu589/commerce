@@ -127,3 +127,18 @@ button,
 }
 
 /* end of listing page */
+
+/* the following pertains to the comment page */
+
+#id_comment {
+    height: 150px;
+    width: 350px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.comment {
+    margin-top: 10px;
+}
+
+/* end of comment page */
